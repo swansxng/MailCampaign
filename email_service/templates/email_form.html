@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Рассылка Email</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container mt-5">
+    <h2 class="text-center">Форма отправки Email</h2>
+    <form id="emailForm" class="border p-4 rounded shadow-sm bg-light">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label class="form-label">Тема:</label>
+            <input type="text" id="subject" name="subject" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Сообщение</label>
+            <textarea id="text" name="message" class="form-control" rows="4" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Список email через пробел:</label>
+            <input type="text" id="emails" name="emails" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Задержка в секундах</label>
+            <input type="number" id="delay" name="delay" class="form-control" min="0">
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Отправить</button>
+    </form>
+    <script>
+        $("#emailForm").submit(function(event) {
+            event.preventDefault();
+            $.ajax({
+                url: "/",
+                type: "POST",
+                data: $(this).serialize(),
+                success: function(response) {
+                    alert("Email запланирован");
+                },
+                error: function() {
+                    alert("Ошибка отправки");
+                }
+            });
+        });
+    </script>
+</body>
+</html>

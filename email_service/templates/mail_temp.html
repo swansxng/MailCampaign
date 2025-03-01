@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Пример HTML письма</title>
+</head>
+<body>
+    <h1>Здравствуйте, тема письма: {{ subject }}, это тестовое письмо с трекером открытия. Вот его текст:</h1>
+    {{ data }}
+    <img src="http://127.0.0.1:8000{% url 'tracking' track_id=track_id %}" width="1" height="1" style="display:none;"/>
+
+</body>
+</html>
