@@ -20,5 +20,10 @@ EMAIL_HOST = 'your provider'
 EMAIL_HOST_USER = 'your.mail@example.com'  
 EMAIL_HOST_PASSWORD = 'your mail pass code'  
 
-Also you can change mail template
+Also you can change mail template  
 
+# For celery redis access  
+### Running celery  
+celery -A your_project worker --loglevel=info  
+### Running redis
+redis-server
