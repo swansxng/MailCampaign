@@ -15,7 +15,7 @@ python manage.py migrate
 python manage.py runserver  
 
 # Before running you should change some variables  
-### email_service/email_service/serrings.py  
+### In email_service/email_service/settings.py  
 EMAIL_HOST = 'your provider'  
 EMAIL_HOST_USER = 'your.mail@example.com'  
 EMAIL_HOST_PASSWORD = 'your mail pass code'  
