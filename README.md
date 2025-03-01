@@ -7,7 +7,7 @@ venv\Scripts\activate
 pip install django celery redis  
 
 ### Make migrations  
-cd email_service <small>Entering the project folder</small>  
+cd email_service
 python manage.py makemigrations  
 python manage.py migrate  
 
