@@ -8,7 +8,7 @@ from django.utils.html import strip_tags
 from django.utils.timezone import now
 
 from .models import EmailOpen
-from .tasks import send_email_task, send_test_email
+from .tasks import send_email_task
 # Create your views here.
 
 def email_form(request):
@@ -23,13 +23,13 @@ def email_form(request):
             delay = 0
 
         if delay != 0:
-            send_email_task(subject, message, email_list, delay)
+            send_email_task(request, subject, message, email_list, delay)
         else:
             for recipient in email_list:
                 try:
                     track_id = str(uuid.uuid4())
                     html = render_to_string('mail_temp.html',
-                                                    {"subject": subject, "data": message, "track_id": track_id})
+                                                    {'request': request, "subject": subject, "data": message, "track_id": track_id})
                     text_content = strip_tags(html)
                     email = EmailMultiAlternatives(subject, text_content, 'mailto.fssocial@gmail.com', [recipient])
                     email.attach_alternative(html, "text/html")

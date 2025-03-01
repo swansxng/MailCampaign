@@ -8,13 +8,13 @@ from .models import EmailOpen
 
 
 @shared_task
-def send_email_task(subject, message, email_list, delay):
+def send_email_task(request, subject, message, email_list, delay):
     time.sleep(delay)
     for recipient in email_list:
         try:
             track_id = str(uuid.uuid4())
             html = render_to_string('mail_temp.html',
-                                    {"subject": subject, "data": message, "track_id": track_id})
+                                    {'request': request, "subject": subject, "data": message, "track_id": track_id})
             text_content = strip_tags(html)
             email = EmailMultiAlternatives(subject, text_content, 'mailto.fssocial@gmail.com', [recipient])
             email.attach_alternative(html, "text/html")
@@ -27,10 +27,3 @@ def send_email_task(subject, message, email_list, delay):
             print("created")
         except Exception:
             pass
-
-
-def send_test_email():
-    subject = ''
-    message = ''
-    recipient_list = ['']
-    send_mail(subject, message, 'from_email', recipient_list)
